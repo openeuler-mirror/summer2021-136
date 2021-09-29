@@ -1,0 +1,35 @@
+#!/usr/bin/env sh
+
+tool_name=$0
+
+usage() {
+    echo "Usage: ${tool_name} <option>"
+    echo
+    echo 'Example:'
+    echo "  ${tool_name} -h"
+    echo
+    echo 'Options:'
+    echo
+    echo '-h, --help    Show help'
+    echo '-l            shell command `ls -la --color=auto`'
+}
+
+main() {
+    if [ ! $1 ]; then
+        cd 
+        usage
+        exit 1
+    fi
+
+    # Parse arguments
+    while [ $# -gt 0 ]; do
+    case $1 in
+      -l) ls -la --color=auto; exit ;;
+      -h | --help) usage; exit ;;
+      *) echo -e "Unrecognized option: $1\\n"; usage; exit 2 ;;
+    esac
+    shift
+    done
+}
+
+main "$@"
